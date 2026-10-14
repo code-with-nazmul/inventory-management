@@ -3,6 +3,9 @@ from fastapi import FastAPI, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
+from app.db.base import Base
+from app.db.session import engine
+
 from app.db.session import get_db
 
 
@@ -11,6 +14,8 @@ app = FastAPI(
   description = "Backend API for inventory and order management",
   version = "1.0.0",
 )
+
+Base.metadata.create_all(bind = engine)
 
 
 @app.get("/")
